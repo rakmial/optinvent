@@ -1,0 +1,41 @@
+Purpose: Automatic analysis of ROI of inventory for NTW
+
+optinvent should be able to:
+1. Create a $GP/time metric per rack, per item, per shelf
+  - Time denominations should include monthly, weekly, and 3-day moving averages
+2. Create confidence intervals for inventory back-stock (ie, what are chances that we really need 5 of the same UAG?)
+3. Create "kill" threshold for returning accessories
+  - Will need to learn how much will be paid back
+4. Set accessory max/min by checking shelf "spaces" (eg to avoid lack of choice so wie Samsung in December, \
+    too much choice so wie iPhone)
+5. Generate SKU lists - current rack-designated SKUs visualized on-rack and on a list
+6. Present these data in an easily-understandable GUI
+
+Necessary data:
+
+Accessory Item Characteristics:
+1. Purchase Cost (from RQ, maybe a purchasing report I haven't seen?)
+2. Sale Cost (from RQ time series sale data)
+3. Number per Rack (Will need to collect data, eg 4 UAG fit on a short rack, so a UAG case Accessory Item will \
+    have a magic number of 4)
+Derived - GP Margin (cost-profit), 
+
+Example Sale Time Series DB Entry:
+<Invoice><Time><ItemCode><SoldPrice><NumSold>
+                   FK
+
+Example Item Object DB Entry:
+<ItemName><ItemCode><PurchaseCost><RackNum><imageURL>
+             FK
+
+Rack Characteristics:
+1. Store Location (Map coordinate fields)
+2. ItemCode currently on rack
+
+Future features:
+1. Deploy to Django, google site app?
+2. Live visual representation with automated updates from iqmetrix/RQ
+3. Deploy a recommender system to replace low ROI items
+4. Expand to analyzing phone stock and its relationship to accessory ROI
+5. Per employee, store accessory analysis (for sharing best practices)
+6. "SoftRack", probably a whole other program, affiliate sales of software in-store
